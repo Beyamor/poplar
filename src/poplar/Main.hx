@@ -23,7 +23,7 @@ class Main extends Engine
 		super.init();
 		HXP.console.enable();
 		
-		HXP.world = new PoplarWorld();
+		HXP.scene = new GameScene();
 	}
 	
 	public static function main() {

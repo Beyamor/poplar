@@ -1,13 +1,13 @@
-package ;
+package poplar;
 
-import com.haxepunk.World;
+import com.haxepunk.Scene;
 import poplar.entities.Block;
 
 /**
  * ...
  * @author beyamor
  */
-class PoplarWorld extends World
+class GameScene extends Scene
 {
 
 	public function new() 
