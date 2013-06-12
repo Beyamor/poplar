@@ -9,6 +9,9 @@ import nme.display.BitmapData;
  */
 class Block extends Entity
 {
+	public static var	WIDTH:Int	= 48;
+	public static var	HEIGHT:Int	= 48;
+	
 	public function new(x:Float, y:Float) 
 	{
 		super(x, y, new Image("img/block.png"));
