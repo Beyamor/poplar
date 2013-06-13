@@ -2,6 +2,8 @@ package poplar;
 
 import com.haxepunk.Engine;
 import com.haxepunk.HXP;
+import com.haxepunk.utils.Input;
+import com.haxepunk.utils.Key;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.Lib;
@@ -24,6 +26,12 @@ class Main extends Engine
 		HXP.console.enable();
 		
 		HXP.scene = new GameScene();
+		
+		Input.define("up", [Key.UP]);
+		Input.define("down", [Key.DOWN]);
+		Input.define("left", [Key.LEFT]);
+		Input.define("right", [Key.RIGHT]);
+		Input.define("jump", [Key.X]);
 	}
 	
 	public static function main() {

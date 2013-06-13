@@ -26,6 +26,13 @@ class GameScene extends Scene
 			add(new Block(i * Block.WIDTH, 400));
 		}
 		
+		for (i in 0...10) {
+			
+			var y = 400 - i * Block.HEIGHT;
+			add(new Block(0, y));
+			add(new Block(Math.floor(HXP.width / Block.WIDTH) * Block.WIDTH, y));
+		}
+		
 		add(new Player(Block.WIDTH * 5, 200));
 	}
 }

@@ -29,6 +29,7 @@ class Block extends Entity
 		
 		width	= WIDTH;
 		height	= HEIGHT;
+		type	= "block";
 	}
 	
 }
