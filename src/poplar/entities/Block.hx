@@ -1,6 +1,7 @@
 package poplar.entities;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
+import com.haxepunk.HXP;
 import nme.display.BitmapData;
 
 /**
@@ -8,7 +9,7 @@ import nme.display.BitmapData;
  * @author beyamor
  */ 
 class Block extends Entity
-{
+{	
 	private static var colors:Array<Int> = [0xE01B1B, 0x3485F7, 0x32ED11, 0xF5952F, 0xFCED12, 0xF285D2];
 	private static var colorIndex:Int = 0;
 	private static function nextColor():Int {
@@ -17,8 +18,9 @@ class Block extends Entity
 		return color;
 	}
 	
-	public static var	WIDTH:Int	= 48;
-	public static var	HEIGHT:Int	= 48;
+	public static var	WIDTH:Int			= 48;
+	public static var	HEIGHT:Int			= 48;
+	public static var	FALL_SPEED:Float	= 200;
 	
 	public function new(x:Float, y:Float) 
 	{		
@@ -32,4 +34,26 @@ class Block extends Entity
 		type	= "block";
 	}
 	
+	override public function update():Void 
+	{
+		super.update();
+		
+		if (collideTypes(["block", "boundary"], x, y + 1) == null) {
+			
+			for (yTest in 0...Math.ceil(FALL_SPEED * HXP.elapsed)) {
+				
+				var yIncrement = 1;
+				
+				if (collideTypes(["block", "boundary"], x, y + yIncrement) == null) {
+					
+					y += yIncrement;
+				}
+				
+				else {
+					
+					break;
+				}
+			}
+		}
+	}
 }

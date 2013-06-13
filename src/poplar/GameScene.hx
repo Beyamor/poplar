@@ -3,6 +3,7 @@ package poplar;
 import com.haxepunk.graphics.Backdrop;
 import com.haxepunk.HXP;
 import com.haxepunk.Scene;
+import poplar.control.BlockSpawner;
 import poplar.entities.Block;
 import poplar.entities.Boundary;
 import poplar.entities.Player;
@@ -14,6 +15,7 @@ import poplar.support.Grid;
  */
 class GameScene extends Scene
 {
+	private var blockSpawner:BlockSpawner;
 
 	public function new() 
 	{
@@ -43,19 +45,15 @@ class GameScene extends Scene
 		// Right
 		add(new Boundary(HXP.width - boundaryWidth, 0, boundaryWidth, HXP.height));
 		
-		
-		for (i in 5...10) {
-			
-			var pos = grid.pixelPos(i, grid.height - 1);
-			add(new Block(pos.x, pos.y));
-		}
-		
-		for (i in 1...3) {
-			
-			var pos = grid.pixelPos(grid.width - 1, grid.height - 1 - i);
-			add(new Block(pos.x, pos.y));
-		}
-		
 		add(new Player(Block.WIDTH * 5, 200));
+		
+		blockSpawner = new BlockSpawner(this, grid);
+	}
+	
+	override public function update():Dynamic 
+	{
+		super.update();
+		
+		blockSpawner.update();
 	}
 }

@@ -38,4 +38,9 @@ class Grid
 		
 		return new Point(pixelDimensions.x + x * Block.WIDTH, pixelDimensions.y + y * Block.HEIGHT);
 	}
+	
+	public function anyX():Int {
+		
+		return Math.floor(Math.random() * width);
+	}
 }
