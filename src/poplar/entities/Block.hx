@@ -27,6 +27,8 @@ class Block extends Entity
 		
 		super(x, y, sprite);
 		
+		width	= WIDTH;
+		height	= HEIGHT;
 	}
 	
 }

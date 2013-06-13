@@ -3,6 +3,7 @@ package poplar;
 import com.haxepunk.HXP;
 import com.haxepunk.Scene;
 import poplar.entities.Block;
+import poplar.entities.Player;
 
 /**
  * ...
@@ -24,5 +25,7 @@ class GameScene extends Scene
 			
 			add(new Block(i * Block.WIDTH, 400));
 		}
+		
+		add(new Player(Block.WIDTH * 5, 200));
 	}
 }
