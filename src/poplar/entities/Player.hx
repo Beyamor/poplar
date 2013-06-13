@@ -58,7 +58,7 @@ class Player extends Entity
 			
 			var xIncrement = HXP.sign(xVel);
 			
-			if (collide("block", x + xIncrement, y) == null) {
+			if (collideTypes(["block", "boundary"], x + xIncrement, y) == null) {
 				
 				x += xIncrement;
 			}
@@ -75,7 +75,7 @@ class Player extends Entity
 			
 			var yIncrement = HXP.sign(yVel);
 			
-			if (collide("block", x, y + yIncrement) == null) {
+			if (collideTypes(["block", "boundary"], x, y + yIncrement) == null) {
 				
 				y += yIncrement;
 			}
