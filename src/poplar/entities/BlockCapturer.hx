@@ -4,6 +4,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import poplar.entities.player.Player;
+import poplar.entities.player.states.CapturingState;
 import poplar.support.Direction;
 
 /**
@@ -14,11 +15,11 @@ class BlockCapturer extends Entity
 {
 	private static var SPEED:Float = 800;
 	
-	private var player:Player;
+	private var player:CapturingState;
 	private var xIncrement:Float;
 	private var yIncrement:Float;
 
-	public function new(player:Player, x:Float, y:Float, direction:Direction) 
+	public function new(player:CapturingState, x:Float, y:Float, direction:Direction) 
 	{
 		this.player = player;
 		super(x, y, new Image("img/shot.png"));
@@ -59,8 +60,13 @@ class BlockCapturer extends Entity
 					
 					var block = cast(collision, Block);
 					
-					player.color = block.color;
+					player.blockHit(block);
 					scene.remove(block);
+				}
+				
+				else {
+					
+					player.shotMissed();
 				}
 				
 				scene.remove(this);

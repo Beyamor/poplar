@@ -5,6 +5,8 @@ import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
 import poplar.entities.Block;
 import poplar.entities.BlockCapturer;
+import poplar.entities.player.states.NormalState;
+import poplar.entities.player.states.PlayerState;
 import poplar.support.Direction;
 
 /**
@@ -22,9 +24,10 @@ class Player extends Entity
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
-	private var shotDirection:Direction;
 	
+	public var shotDirection(default, null):Direction;
 	public var color(null, set_color):Int;
+	public var state(null,set_state):PlayerState;
 
 	public function new(x:Float, y:Float) 
 	{		
@@ -35,6 +38,7 @@ class Player extends Entity
 		width			= Block.WIDTH;
 		height			= Block.HEIGHT;
 		shotDirection	= RIGHT;
+		state			= new NormalState(this);
 	}
 	
 	private function die():Void {
@@ -154,17 +158,20 @@ class Player extends Entity
 			yVel = -JUMP_VELOCITY;
 		}
 		
-		// Nice. Shoot 'em up
-		if (Input.pressed("shoot")) {
-			
-			var shot = new BlockCapturer(this, x + halfWidth, y + halfHeight, shotDirection);
-			scene.add(shot);
-		}
+		// Nice. Let the states have atter
+		state.update();
 	}
 	
 	private function set_color(newColor:Int):Int {
 		
 		sprite.color = newColor;
 		return newColor;
+	}
+	
+	private function set_state(newState:PlayerState):PlayerState {
+		
+		state = newState;
+		state.enter();
+		return state;
 	}
 }
