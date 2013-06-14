@@ -22,6 +22,8 @@ class Block extends Entity
 	public static var	HEIGHT:Int			= 48;
 	public static var	FALL_SPEED:Float	= 200;
 	
+	public var yVel:Float = 0;
+	
 	public function new(x:Float, y:Float) 
 	{		
 		var sprite = new Image("img/block.png");
@@ -40,7 +42,9 @@ class Block extends Entity
 		
 		if (collideTypes(["block", "boundary"], x, y + 1) == null) {
 			
-			for (yTest in 0...Math.ceil(FALL_SPEED * HXP.elapsed)) {
+			yVel = FALL_SPEED;
+			
+			for (yTest in 0...Math.ceil(yVel * HXP.elapsed)) {
 				
 				var yIncrement = 1;
 				
@@ -54,6 +58,11 @@ class Block extends Entity
 					break;
 				}
 			}
+		}
+		
+		else {
+			
+			yVel = 0;
 		}
 	}
 }

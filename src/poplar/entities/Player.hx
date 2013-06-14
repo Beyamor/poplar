@@ -29,10 +29,46 @@ class Player extends Entity
 		height	= Block.HEIGHT;
 	}
 	
+	private function die():Void {
+		
+		x = HXP.halfWidth;
+		y = HXP.halfHeight;
+	}
+	
 	override public function update():Void 
 	{
 		super.update();
 		
+		// If a block moved onto this entity
+		var initialCollision = collide("block", x, y);
+		if (initialCollision != null) {
+			
+			var freeSpace = (initialCollision.collideTypes(
+								["block", "boundary"], initialCollision.x, initialCollision.y + Block.HEIGHT)
+							== null);
+							
+			// If free space exists below the block,
+			// move into it
+			if (freeSpace) {
+				
+				y		= initialCollision.y + Block.HEIGHT;
+				yVel	= (cast(initialCollision, Block)).yVel;
+			}
+			
+			// Otherwise, die?
+			else {
+				
+				die();
+				return;
+			}
+		}
+		
+		// Cool. Okay. At this point, we should be free of any blocks.
+		// Let's move on to the regular motion.
+		// Apply gravity
+		yVel += GRAVITY * HXP.elapsed;
+		
+		// Check for horizontal movement
 		var	tryingToMoveHorizontally:Bool = false;
 		
 		if (Input.check("left")) {
@@ -47,12 +83,14 @@ class Player extends Entity
 			tryingToMoveHorizontally = true;
 		}
 		
+		// If the player is not trying to move, apply friction
 		if (!tryingToMoveHorizontally)	{
 			
 			var frictionAmount = Math.min(FRICTION * HXP.elapsed, Math.abs(xVel));
 			xVel -= frictionAmount * HXP.sign(xVel);
 		}
 		
+		// Alright. Stepwise move in x axis.
 		xVel = HXP.clamp(xVel, -MAX_HORIZONTAL_SPEED, MAX_HORIZONTAL_SPEED);
 		for (xTest in 0...Math.ceil(Math.abs(xVel * HXP.elapsed))) {
 			
@@ -69,30 +107,41 @@ class Player extends Entity
 			}
 		}
 		
-		var canJump:Bool = false;
-		
+		// Stepwise move in y axis
 		for (yTest in 0...Math.ceil(Math.abs(yVel * HXP.elapsed))) {
 			
 			var yIncrement = HXP.sign(yVel);
+			var collision = collideTypes(["block", "boundary"], x, y + yIncrement);
 			
-			if (collideTypes(["block", "boundary"], x, y + yIncrement) == null) {
+			// If we didn't hit anything, keep going
+			if (collision == null) {
 				
 				y += yIncrement;
 			}
 			
+			// Otherwise, whoa, collision
 			else {
 				
-				yVel = 0;
-				canJump = true;
+				// If it's a block, match its speed
+				// (this should let us fall on blocks consistently)
+				if (Std.is(collision, Block)) {
+					
+					yVel = (cast(collision, Block)).yVel;
+				}
+				
+				else {
+				
+					yVel = 0;
+				}
 				break;
 			}
 		}
 		
+		// And handle jumping
+		var canJump = (yVel == 0) && (collideTypes(["block", "boundary"], x, y + 1) != null);
 		if (canJump && Input.pressed("jump")) {
 			
 			yVel -= JUMP_VELOCITY;
 		}
-		
-		yVel += GRAVITY * HXP.elapsed;
 	}
 }
