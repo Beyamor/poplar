@@ -24,8 +24,8 @@ class ReleasingState extends PlayerState
 		var shot = new BlockReleaser(
 			this,
 			block,
-			player.x + player.halfWidth,
-			player.y + player.halfHeight,
+			player.x,
+			player.y - player.halfHeight,
 			player.shotDirection
 		);
 		player.scene.add(shot);

@@ -34,10 +34,15 @@ class Player extends Entity
 		
 		super(x, y, sprite);
 		
-		width			= Block.WIDTH;
+		width			= Math.floor(Block.WIDTH * 0.75);
 		height			= Block.HEIGHT;
+		originX			= Math.floor(width / 2);
+		originY			= height;		
 		shotDirection	= RIGHT;
 		state			= new NormalState(this);
+		
+		sprite.x		= -sprite.width / 2;
+		sprite.y		= -height;
 	}
 	
 	private function die():Void {
