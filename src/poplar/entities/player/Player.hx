@@ -4,7 +4,6 @@ import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
 import poplar.entities.Block;
-import poplar.entities.BlockCapturer;
 import poplar.entities.player.states.NormalState;
 import poplar.entities.player.states.PlayerState;
 import poplar.support.Direction;

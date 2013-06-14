@@ -1,6 +1,6 @@
 package poplar.entities.player.states;
 import poplar.entities.Block;
-import poplar.entities.BlockCapturer;
+import poplar.entities.shots.BlockCapturer;
 import poplar.entities.player.Player;
 
 /**

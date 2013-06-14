@@ -1,4 +1,4 @@
-package poplar.entities;
+package poplar.entities.shots;
 
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
