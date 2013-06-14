@@ -23,6 +23,7 @@ class Player extends Entity
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
+	private var lastHorizontalShotDirection:Direction;
 	
 	public var shotDirection(default, null):Direction;
 	public var color(null, set_color):Int;
@@ -43,6 +44,8 @@ class Player extends Entity
 		
 		sprite.x		= -sprite.width / 2;
 		sprite.y		= -height;
+		
+		shotDirection = lastHorizontalShotDirection = RIGHT;
 	}
 	
 	private function die():Void {
@@ -54,6 +57,10 @@ class Player extends Entity
 	override public function update():Void 
 	{
 		super.update();
+		
+		// Last update might've set shot direction to up or down
+		// However, we only want to shoot that way if up or down is held
+		shotDirection = lastHorizontalShotDirection;
 		
 		// If a block moved onto this entity
 		var initialCollision = collide("block", x, y);
@@ -91,14 +98,14 @@ class Player extends Entity
 			
 			xVel -= HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
-			shotDirection = LEFT;
+			shotDirection = lastHorizontalShotDirection = LEFT;
 		}
 		
 		if (Input.check("right")) {
 			
 			xVel += HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
-			shotDirection = RIGHT;
+			shotDirection = lastHorizontalShotDirection = RIGHT;
 		}
 		
 		// If the player is not trying to move, apply friction
