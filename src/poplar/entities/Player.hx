@@ -138,7 +138,7 @@ class Player extends Entity
 		}
 		
 		// And handle jumping
-		var canJump = (yVel == 0) && (collideTypes(["block", "boundary"], x, y + 1) != null);
+		var canJump = (collideTypes(["block", "boundary"], x, y + 1) != null);
 		if (canJump && Input.pressed("jump")) {
 			
 			yVel -= JUMP_VELOCITY;
