@@ -22,15 +22,12 @@ class BlockReleaser extends Shot
 		this.block	= block;
 		
 		var sprite:Image = new Image("img/block.png");
-		sprite.x = -sprite.width / 2;
-		sprite.y = -sprite.height / 2;
 		sprite.color = block.color;
 		
 		super(x, y, direction, sprite);
 		
 		width = block.width;
 		height = block.height;
-		centerOrigin();
 	}
 	
 	override private function onCollision(collision:Entity):Void 
@@ -39,10 +36,10 @@ class BlockReleaser extends Shot
 			
 			case LEFT, RIGHT:
 				block.x = (collision.x < x)? (collision.right) : (collision.left - block.width);
-				block.y = y - halfHeight;
+				block.y = y;
 				
 			case UP, DOWN:
-				block.x = (cast(scene, GameScene)).grid.closestPixelX(x - halfWidth);
+				block.x = x;
 				block.y = (collision.y < y)? (collision.bottom) : (collision.top - block.height);
 				
 				if (Std.is(collision, Block)) {

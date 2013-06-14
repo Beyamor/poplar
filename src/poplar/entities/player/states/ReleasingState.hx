@@ -2,6 +2,7 @@ package poplar.entities.player.states;
 import poplar.entities.Block;
 import poplar.entities.player.Player;
 import poplar.entities.shots.BlockReleaser;
+import poplar.GameScene;
 
 /**
  * ...
@@ -24,8 +25,8 @@ class ReleasingState extends PlayerState
 		var shot = new BlockReleaser(
 			this,
 			block,
-			player.x,
-			player.y - player.halfHeight,
+			(cast(player.scene, GameScene)).grid.closestPixelX(player.x - block.halfWidth),
+			player.y - player.height,
 			player.shotDirection
 		);
 		player.scene.add(shot);
