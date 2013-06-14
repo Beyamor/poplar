@@ -74,7 +74,7 @@ class Player extends Entity
 			// move into it
 			if (freeSpace) {
 				
-				y		= initialCollision.y + Block.HEIGHT;
+				y		= initialCollision.y + height + Block.HEIGHT;
 				yVel	= (cast(initialCollision, Block)).yVel;
 			}
 			
