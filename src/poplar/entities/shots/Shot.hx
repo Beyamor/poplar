@@ -1,7 +1,7 @@
 package poplar.entities.shots;
 
 import com.haxepunk.Entity;
-import com.haxepunk.graphics.Image;
+import com.haxepunk.Graphic;
 import com.haxepunk.HXP;
 import poplar.support.Direction;
 
@@ -15,16 +15,10 @@ class Shot extends Entity
 	
 	private var xIncrement:Float;
 	private var yIncrement:Float;
-	private var sprite:Image;
 
-	public function new(x:Float, y:Float, direction:Direction) 
+	public function new(x:Float, y:Float, direction:Direction, graphic:Graphic) 
 	{
-		sprite = new Image("img/shot.png");
-		super(x, y, sprite);
-		
-		width = height = 24;
-		
-		centerOrigin();
+		super(x, y, graphic);
 		
 		switch(direction) {
 			
