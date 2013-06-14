@@ -32,6 +32,7 @@ class Main extends Engine
 		Input.define("left", [Key.LEFT]);
 		Input.define("right", [Key.RIGHT]);
 		Input.define("jump", [Key.X]);
+		Input.define("shoot", [Key.C]);
 	}
 	
 	public static function main() {

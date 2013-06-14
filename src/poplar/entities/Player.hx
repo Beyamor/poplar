@@ -18,10 +18,13 @@ class Player extends Entity
 	
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
+	private var sprite:Image;
+	
+	public var color(null, set_color):Int;
 
 	public function new(x:Float, y:Float) 
 	{		
-		var sprite = new Image("img/player.png");
+		sprite = new Image("img/player.png");
 		
 		super(x, y, sprite);
 		
@@ -143,5 +146,18 @@ class Player extends Entity
 			
 			yVel = -JUMP_VELOCITY;
 		}
+		
+		// Nice. Shoot 'em up
+		if (Input.pressed("shoot")) {
+			
+			var shot = new BlockCapturer(this, x + halfWidth, y + halfHeight);
+			scene.add(shot);
+		}
+	}
+	
+	private function set_color(newColor:Int):Int {
+		
+		sprite.color = newColor;
+		return newColor;
 	}
 }

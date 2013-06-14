@@ -23,11 +23,12 @@ class Block extends Entity
 	public static var	FALL_SPEED:Float	= 200;
 	
 	public var yVel:Float = 0;
+	public var color(default, null):Int;
 	
 	public function new(x:Float, y:Float) 
 	{		
 		var sprite = new Image("img/block.png");
-		sprite.color = nextColor();
+		sprite.color = color = nextColor();
 		
 		super(x, y, sprite);
 		
