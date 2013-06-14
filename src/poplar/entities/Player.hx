@@ -141,7 +141,7 @@ class Player extends Entity
 		var canJump = (collideTypes(["block", "boundary"], x, y + 1) != null);
 		if (canJump && Input.pressed("jump")) {
 			
-			yVel -= JUMP_VELOCITY;
+			yVel = -JUMP_VELOCITY;
 		}
 	}
 }
