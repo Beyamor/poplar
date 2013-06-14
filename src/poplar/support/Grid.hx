@@ -43,4 +43,9 @@ class Grid
 		
 		return Math.floor(Math.random() * width);
 	}
+	
+	public function closestPixelX(x:Float):Float {
+		
+		return Math.round(((x - pixelDimensions.x) / Block.WIDTH)) * Block.WIDTH + pixelDimensions.x;
+	}
 }

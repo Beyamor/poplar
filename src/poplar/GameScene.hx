@@ -16,6 +16,8 @@ import poplar.support.Grid;
 class GameScene extends Scene
 {
 	private var blockSpawner:BlockSpawner;
+	
+	public var grid:Grid;
 
 	public function new() 
 	{
@@ -28,7 +30,7 @@ class GameScene extends Scene
 		
 		addGraphic(new Backdrop("img/background.png"), 100);
 		
-		var grid = new Grid();
+		grid = new Grid();
 		
 		var	boundaryHeight	= Math.floor(grid.pixelDimensions.top);
 		var boundaryWidth	= Math.floor(grid.pixelDimensions.left);

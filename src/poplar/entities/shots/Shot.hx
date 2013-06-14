@@ -15,9 +15,12 @@ class Shot extends Entity
 	
 	private var xIncrement:Float;
 	private var yIncrement:Float;
+	private var direction:Direction;
 
 	public function new(x:Float, y:Float, direction:Direction, graphic:Graphic) 
 	{
+		this.direction = direction;
+		
 		super(x, y, graphic);
 		
 		switch(direction) {
@@ -29,6 +32,14 @@ class Shot extends Entity
 			case RIGHT:
 				xIncrement = 1;
 				yIncrement = 0;
+				
+			case UP:
+				xIncrement = 0;
+				yIncrement = -1;
+				
+			case DOWN:
+				xIncrement = 0;
+				yIncrement = 1;
 		}
 	}
 	

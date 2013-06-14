@@ -157,6 +157,9 @@ class Player extends Entity
 			yVel = -JUMP_VELOCITY;
 		}
 		
+		if (Input.check("up"))		shotDirection = UP;
+		if (Input.check("down"))	shotDirection = DOWN;
+		
 		// Nice. Let the states have atter
 		state.update();
 	}
