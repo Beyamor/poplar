@@ -3,6 +3,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import nme.display.BitmapData;
+import poplar.support.Grid;
 
 /**
  * ...
@@ -24,9 +25,12 @@ class Block extends Entity
 	
 	public var yVel:Float = 0;
 	public var color(default, null):Int;
+	public var grid:Grid;
 	
-	public function new(x:Float, y:Float) 
+	public function new(x:Float, y:Float, grid:Grid) 
 	{		
+		this.grid = grid;
+		
 		var sprite = new Image("img/block.png");
 		sprite.color = color = nextColor();
 		
@@ -63,7 +67,12 @@ class Block extends Entity
 		
 		else {
 			
-			yVel = 0;
+			if (yVel != 0) {
+			
+				yVel = 0;
+				x = grid.closestPixelX(x);
+				y = grid.closestPixelY(y);
+			}
 		}
 	}
 }

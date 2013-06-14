@@ -25,7 +25,7 @@ class ReleasingState extends PlayerState
 		var shot = new BlockReleaser(
 			this,
 			block,
-			(cast(player.scene, GameScene)).grid.closestPixelX(player.x - block.halfWidth),
+			block.grid.closestPixelX(player.x - block.halfWidth),
 			player.y - player.height,
 			player.shotDirection
 		);

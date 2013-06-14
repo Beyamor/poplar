@@ -48,4 +48,9 @@ class Grid
 		
 		return Math.round(((x - pixelDimensions.x) / Block.WIDTH)) * Block.WIDTH + pixelDimensions.x;
 	}
+	
+	public function closestPixelY(y:Float):Float {
+		
+		return Math.round(((y - pixelDimensions.y) / Block.HEIGHT)) * Block.HEIGHT + pixelDimensions.y;
+	}
 }

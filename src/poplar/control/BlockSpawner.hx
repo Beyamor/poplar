@@ -21,7 +21,7 @@ class BlockSpawner implements Updateable
 		watch.addCallback(function():Void {
 			
 			var pos = grid.pixelPos(grid.anyX(), 0);
-			scene.add(new Block(pos.x, pos.y));
+			scene.add(new Block(pos.x, pos.y, grid));
 		});
 		watch.loops = true;
 	}
