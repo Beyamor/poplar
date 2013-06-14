@@ -30,7 +30,7 @@ class CapturedState extends PlayerState
 		
 		if (Input.pressed("shoot")) {
 			
-			player.state = new CapturingState(player);
+			player.state = new ReleasingState(player, block);
 		}
 	}
 }
