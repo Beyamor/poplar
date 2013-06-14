@@ -3,6 +3,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
+import poplar.support.Direction;
 
 /**
  * ...
@@ -19,6 +20,7 @@ class Player extends Entity
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
+	private var shotDirection:Direction;
 	
 	public var color(null, set_color):Int;
 
@@ -28,8 +30,9 @@ class Player extends Entity
 		
 		super(x, y, sprite);
 		
-		width	= Block.WIDTH;
-		height	= Block.HEIGHT;
+		width			= Block.WIDTH;
+		height			= Block.HEIGHT;
+		shotDirection	= RIGHT;
 	}
 	
 	private function die():Void {
@@ -78,12 +81,14 @@ class Player extends Entity
 			
 			xVel -= HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
+			shotDirection = LEFT;
 		}
 		
 		if (Input.check("right")) {
 			
 			xVel += HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
+			shotDirection = RIGHT;
 		}
 		
 		// If the player is not trying to move, apply friction
@@ -150,7 +155,7 @@ class Player extends Entity
 		// Nice. Shoot 'em up
 		if (Input.pressed("shoot")) {
 			
-			var shot = new BlockCapturer(this, x + halfWidth, y + halfHeight);
+			var shot = new BlockCapturer(this, x + halfWidth, y + halfHeight, shotDirection);
 			scene.add(shot);
 		}
 	}
