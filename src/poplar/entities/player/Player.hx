@@ -1,8 +1,10 @@
-package poplar.entities;
+package poplar.entities.player;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
+import poplar.entities.Block;
+import poplar.entities.BlockCapturer;
 import poplar.support.Direction;
 
 /**

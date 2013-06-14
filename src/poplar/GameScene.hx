@@ -6,7 +6,7 @@ import com.haxepunk.Scene;
 import poplar.control.BlockSpawner;
 import poplar.entities.Block;
 import poplar.entities.Boundary;
-import poplar.entities.Player;
+import poplar.entities.player.Player;
 import poplar.support.Grid;
 
 /**

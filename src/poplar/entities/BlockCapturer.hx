@@ -3,6 +3,7 @@ package poplar.entities;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
+import poplar.entities.player.Player;
 import poplar.support.Direction;
 
 /**
