@@ -1,4 +1,4 @@
-package poplar.control;
+package poplar.spawners;
 
 import com.haxepunk.Scene;
 import com.haxepunk.World;
@@ -13,21 +13,23 @@ import poplar.util.Watch;
  */
 class BlockSpawner implements Updateable
 {
-	private var watch:Watch;
+	private var scene:Scene;
+	private var grid:Grid;
 
 	public function new(scene:Scene, grid:Grid) 
 	{
-		watch = new Watch(2);
-		watch.addCallback(function():Void {
-			
-			var pos = grid.pixelPos(grid.anyX(), 0);
-			scene.add(new Block(pos.x, pos.y, grid));
-		});
-		watch.loops = true;
+		this.scene = scene;
+		this.grid = grid;
+	}
+	
+	private function spawnNextBlock():Void {
+		
+		var pos = grid.pixelPos(grid.anyX(), 0);
+		scene.add(new Block(pos.x, pos.y, grid));
 	}
 	
 	public function update():Void {
 		
-		watch.update();
+		// Override in subclass
 	}
 }

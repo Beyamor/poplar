@@ -3,10 +3,11 @@ package poplar;
 import com.haxepunk.graphics.Backdrop;
 import com.haxepunk.HXP;
 import com.haxepunk.Scene;
-import poplar.control.BlockSpawner;
 import poplar.entities.Block;
 import poplar.entities.Boundary;
 import poplar.entities.player.Player;
+import poplar.spawners.BlockSpawner;
+import poplar.spawners.ManualSpawner;
 import poplar.support.Grid;
 
 /**
@@ -49,7 +50,7 @@ class GameScene extends Scene
 		
 		add(new Player(Block.WIDTH * 5, 200));
 		
-		blockSpawner = new BlockSpawner(this, grid);
+		blockSpawner = new ManualSpawner(this, grid);
 	}
 	
 	override public function update():Dynamic 
