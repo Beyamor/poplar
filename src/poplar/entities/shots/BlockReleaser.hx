@@ -52,6 +52,7 @@ class BlockReleaser extends Shot
 		
 		block.yVel = 0;
 		scene.add(block);
+		block.grid.checkForMatches(block);
 		player.shotHit();
 	}
 }

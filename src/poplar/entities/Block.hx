@@ -41,6 +41,15 @@ class Block extends Entity
 		type	= "block";
 	}
 	
+	private function stopMoving():Void {
+		
+		yVel = 0;
+		x = grid.closestPixelX(x);
+		y = grid.closestPixelY(y);
+		
+		grid.checkForMatches(this);
+	}
+	
 	override public function update():Void 
 	{
 		super.update();
@@ -60,6 +69,7 @@ class Block extends Entity
 				
 				else {
 					
+					stopMoving();
 					break;
 				}
 			}
@@ -69,9 +79,7 @@ class Block extends Entity
 			
 			if (yVel != 0) {
 			
-				yVel = 0;
-				x = grid.closestPixelX(x);
-				y = grid.closestPixelY(y);
+				stopMoving();
 			}
 		}
 	}

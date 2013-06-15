@@ -30,7 +30,7 @@ class GameScene extends Scene
 		
 		addGraphic(new Backdrop("img/background.png"), 100);
 		
-		grid = new Grid();
+		grid = new Grid(this);
 		
 		var	boundaryHeight	= Math.floor(grid.pixelDimensions.top);
 		var boundaryWidth	= Math.floor(grid.pixelDimensions.left);
