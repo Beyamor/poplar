@@ -9,6 +9,7 @@ import poplar.util.Watch;
  */
 class PeriodicSpawner extends BlockSpawner
 {
+	private var watch:Watch;
 
 	public function new(scene:Scene, grid:Grid, intervalInSeconds:Float)
 	{
