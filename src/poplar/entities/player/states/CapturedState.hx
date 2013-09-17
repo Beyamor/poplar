@@ -14,30 +14,24 @@ import poplar.support.Grid;
  */
 class CapturedState extends PlayerState
 {
-	private var block:Block;
 	private var scene(get_scene, null):Scene;
-	private var grid(get_grid, null):Grid;
+	private var block:Block;
 	
 	private function get_scene():Scene {
 		
 		return player.scene;
 	}
-	
-	private function get_grid():Grid {
-		
-		return block.grid;
-	}
 
 	public function new(player:Player, block:Block) 
 	{
-		super(player);
-		
 		this.block = block;
+		super(player);
 	}
 	
 	override public function enter():Void 
 	{
 		super.enter();
+		player.block = block;
 		player.color = block.color;
 	}
 	
@@ -66,11 +60,8 @@ class CapturedState extends PlayerState
 		
 			case DOWN:
 				
-				var releaseX:Float = grid.closestPixelX(player.x - block.halfWidth),
-					releaseY:Float = player.y + 1;
-				
 				// Check for free space right below the player
-				var collisionBelow = collideBlock(releaseX, releaseY);
+				var collisionBelow = collideBlock(player.releaseX, player.releaseY);
 				
 				// If no collision below, we're good
 				// Otherwise, try to reposition the player
@@ -97,7 +88,7 @@ class CapturedState extends PlayerState
 			
 		if (canShoot) {
 		
-			player.state = new ReleasingState(player, block);
+			player.state = new ReleasingState(player);
 		}
 	}
 	

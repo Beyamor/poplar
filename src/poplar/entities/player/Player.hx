@@ -7,6 +7,7 @@ import poplar.entities.Block;
 import poplar.entities.player.states.NormalState;
 import poplar.entities.player.states.PlayerState;
 import poplar.support.Direction;
+import poplar.support.Grid;
 
 /**
  * ...
@@ -24,13 +25,20 @@ class Player extends Entity
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
 	private var lastHorizontalShotDirection:Direction;
+	private var grid:Grid;
 	
 	public var shotDirection(default, null):Direction;
 	public var color(null, set_color):Int;
 	public var state(null,set_state):PlayerState;
+	public var releaseX(get_releaseX,null):Float;
+	public var releaseY(get_releaseY, null):Float;
+	
+	public var block:Block;
 
-	public function new(x:Float, y:Float) 
+	public function new(grid:Grid, x:Float, y:Float) 
 	{		
+		this.grid = grid;
+		
 		sprite = new Image("img/player.png");
 		
 		super(x, y, sprite);
@@ -187,5 +195,29 @@ class Player extends Entity
 		state = newState;
 		state.enter();
 		return state;
+	}
+	
+	private function get_releaseX():Float {
+		
+		switch (shotDirection) {
+			
+			case DOWN:
+				return grid.closestPixelX(x - block.halfWidth);
+				
+			default:
+				return grid.closestPixelX(x - block.halfWidth);
+		}
+	}
+	
+	private function get_releaseY():Float {
+		
+		switch (shotDirection) {
+			
+			case DOWN:
+				return y;
+				
+			default:
+				return y - block.height;
+		}
 	}
 }

@@ -11,39 +11,26 @@ import poplar.support.Direction;
  */
 class ReleasingState extends PlayerState
 {
-	private var block:Block;
-
-	public function new(player:Player, block:Block) 
+	public function new(player:Player) 
 	{
 		super(player);
-		this.block = block;
 	}
 	
 	override public function enter():Void 
 	{
 		super.enter();
 		
-		var x = block.grid.closestPixelX(player.x - block.halfWidth);
-		var y = player.y - block.height;
-		
-		switch (player.shotDirection) {
-			
-			case DOWN:
-				y = player.y;
-				
-			default:
-		}
-		
 		var shot = new BlockReleaser(
 			this,
-			block,
-			x,
-			y,
+			player.block,
+			player.releaseX,
+			player.releaseY,
 			player.shotDirection
 		);
 		player.scene.add(shot);
 		
 		player.color = 0xFFFFFF;
+		player.block = null;
 	}
 	
 	public function shotHit():Void {

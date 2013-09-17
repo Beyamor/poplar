@@ -28,4 +28,6 @@
 	<haxeflag name="--dead-code-elimination" unless="haxe3" />
 	<haxeflag name="-dce" if="haxe3" />
 	
+	<haxedef name="fdb" if="target_flash"/>
+	
 </project>

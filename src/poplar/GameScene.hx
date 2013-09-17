@@ -49,7 +49,7 @@ class GameScene extends Scene
 		// Right
 		add(new Boundary(HXP.width - boundaryWidth, 0, boundaryWidth, HXP.height));
 		
-		add(new Player(Block.WIDTH * 5, 200));
+		add(new Player(grid, Block.WIDTH * 5, 200));
 		
 		//blockSpawner = new PeriodicSpawner(this, grid, 1.7);
 		blockSpawner = new ManualSpawner(this, grid);
