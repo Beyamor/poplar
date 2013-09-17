@@ -3,6 +3,7 @@ import poplar.entities.Block;
 import poplar.entities.player.Player;
 import poplar.entities.shots.BlockReleaser;
 import poplar.GameScene;
+import poplar.support.Direction;
 
 /**
  * ...
@@ -22,11 +23,22 @@ class ReleasingState extends PlayerState
 	{
 		super.enter();
 		
+		var x = block.grid.closestPixelX(player.x - block.halfWidth);
+		var y = player.y - block.height;
+		
+		switch (player.shotDirection) {
+			
+			case DOWN:
+				y = player.y;
+				
+			default:
+		}
+		
 		var shot = new BlockReleaser(
 			this,
 			block,
-			block.grid.closestPixelX(player.x - block.halfWidth),
-			player.y - player.height,
+			x,
+			y,
 			player.shotDirection
 		);
 		player.scene.add(shot);

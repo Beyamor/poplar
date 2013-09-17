@@ -25,7 +25,8 @@ class BlockSpawner implements Updateable
 	private function spawnNextBlock():Void {
 		
 		var pos = grid.pixelPos(grid.anyX(), 0);
-		scene.add(new Block(pos.x, pos.y, grid));
+		var color = Block.colors[Math.floor(Math.random() * Block.colors.length)];
+		scene.add(new Block(pos.x, pos.y, grid, color));
 	}
 	
 	public function update():Void {

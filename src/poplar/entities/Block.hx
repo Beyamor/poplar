@@ -11,7 +11,7 @@ import poplar.support.Grid;
  */ 
 class Block extends Entity
 {	
-	private static var colors:Array<Int> = [0xE01B1B, 0x3485F7, 0x32ED11, 0xF5952F, 0xFCED12, 0xF285D2];
+	public static var colors:Array<Int> = [0xE01B1B, 0x3485F7, 0x32ED11, 0xF5952F, 0xFCED12, 0xF285D2];
 	private static var colorIndex:Int = 0;
 	private static function nextColor():Int {
 		var color = colors[colorIndex % colors.length];
@@ -27,12 +27,12 @@ class Block extends Entity
 	public var color(default, null):Int;
 	public var grid:Grid;
 	
-	public function new(x:Float, y:Float, grid:Grid) 
+	public function new(x:Float, y:Float, grid:Grid, color:UInt) 
 	{		
 		this.grid = grid;
 		
 		var sprite = new Image("img/block.png");
-		sprite.color = color = nextColor();
+		sprite.color = this.color = color;
 		
 		super(x, y, sprite);
 		

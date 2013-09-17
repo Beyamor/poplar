@@ -447,7 +447,8 @@ class Scene extends Tweener
 		while (fe != null)
 		{
 			e = cast(fe, Entity);
-			if (e.collideRect(e.x, e.y, rX, rY, rWidth, rHeight)) return e;
+			if (e.collideRect(e.x, e.y, rX, rY, rWidth, rHeight))
+				return e;
 			fe = fe._typeNext;
 		}
 		return null;

@@ -297,10 +297,10 @@ class Entity extends Tweener
 	 */
 	public function collideRect(x:Float, y:Float, rX:Float, rY:Float, rWidth:Float, rHeight:Float):Bool
 	{
-		if (x - originX + width >= rX &&
-			y - originY + height >= rY &&
-			x - originX <= rX + rWidth &&
-			y - originY <= rY + rHeight)
+		if (x - originX + width > rX &&
+			y - originY + height > rY &&
+			x - originX < rX + rWidth &&
+			y - originY < rY + rHeight)
 		{
 			if (_mask == null) return true;
 			_x = this.x; _y = this.y;

@@ -51,8 +51,8 @@ class GameScene extends Scene
 		
 		add(new Player(Block.WIDTH * 5, 200));
 		
-		blockSpawner = new PeriodicSpawner(this, grid, 2);
-		//blockSpawner = new ManualSpawner(this, grid);
+		//blockSpawner = new PeriodicSpawner(this, grid, 1.7);
+		blockSpawner = new ManualSpawner(this, grid);
 	}
 	
 	override public function update():Dynamic 
