@@ -24,14 +24,10 @@ class Player extends Entity
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
-	private var lastHorizontalShotDirection:Direction;
 	private var grid:Grid;
 	
-	public var shotDirection(default, null):Direction;
 	public var color(null, set_color):Int;
 	public var state(null,set_state):PlayerState;
-	public var releaseX(get_releaseX,null):Float;
-	public var releaseY(get_releaseY, null):Float;
 
 	public function new(grid:Grid, x:Float, y:Float) 
 	{		
@@ -43,12 +39,9 @@ class Player extends Entity
 		
 		width			= Math.floor(Block.WIDTH * 0.75);
 		height			= Block.HEIGHT;
-		shotDirection	= RIGHT;
 		state			= new NormalState(this);
 		
 		sprite.x		= -(sprite.width - width) / 2;
-		
-		shotDirection = lastHorizontalShotDirection = RIGHT;
 		
 		type = "player";
 	}
@@ -62,10 +55,6 @@ class Player extends Entity
 	override public function update():Void 
 	{
 		super.update();
-		
-		// Last update might've set shot direction to up or down
-		// However, we only want to shoot that way if up or down is held
-		shotDirection = lastHorizontalShotDirection;
 		
 		// If a block moved onto this entity
 		var initialCollision = collide("block", x, y);
@@ -100,18 +89,16 @@ class Player extends Entity
 		// Check for horizontal movement
 		var	tryingToMoveHorizontally:Bool = false;
 		
-		if (Input.check("left")) {
+		if (Input.check("move-left")) {
 			
 			xVel -= HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
-			shotDirection = lastHorizontalShotDirection = LEFT;
 		}
 		
-		if (Input.check("right")) {
+		if (Input.check("move-right")) {
 			
 			xVel += HORIZONTAL_ACCELERATION * HXP.elapsed;
 			tryingToMoveHorizontally = true;
-			shotDirection = lastHorizontalShotDirection = RIGHT;
 		}
 		
 		// If the player is not trying to move, apply friction
@@ -175,9 +162,6 @@ class Player extends Entity
 			yVel = -JUMP_VELOCITY;
 		}
 		
-		if (Input.check("up"))		shotDirection = UP;
-		if (Input.check("down"))	shotDirection = DOWN;
-		
 		// Nice. Let the states have atter
 		state.update();
 	}
@@ -195,7 +179,7 @@ class Player extends Entity
 		return state;
 	}
 	
-	private function get_releaseX():Float {
+	public function getReleaseX(shotDirection:Direction):Float {
 		
 		switch (shotDirection) {
 			
@@ -210,7 +194,7 @@ class Player extends Entity
 		}
 	}
 	
-	private function get_releaseY():Float {
+	public function getReleaseY(shotDirection:Direction):Float {
 		
 		switch (shotDirection) {
 			
@@ -242,14 +226,14 @@ class Player extends Entity
 		return collision;
 	}
 	
-	public function canShootForwards():Bool {
+	public function canShootForwards(shotDirection:Direction):Bool {
 		
-		return (collideBlock(releaseX, releaseY) == null);
+		return (collideBlock(getReleaseX(shotDirection), getReleaseY(shotDirection)) == null);
 	}
 	
-	public function canBeMovedBackwards():Bool {
+	public function canBeMovedBackwards(shotDirection:Direction):Bool {
 		
-		var	forwardCollision = collideBlock(releaseX, releaseY),
+		var	forwardCollision = collideBlock(getReleaseX(shotDirection), getReleaseY(shotDirection)),
 			bouncedX:Float = x,
 			bouncedY:Float = y;
 			

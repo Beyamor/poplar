@@ -18,10 +18,10 @@ class ReleasingState extends PlayerState
 	
 	public var wasHit:Bool = false;
 	
-	public function new(player:Player, block:Block) 
+	public function new(player:Player, block:Block, shotDirection:Direction) 
 	{
 		super(player);
-		shotDirection = player.shotDirection;
+		this.shotDirection = shotDirection;
 		this.block = block;
 	}
 	
@@ -32,9 +32,9 @@ class ReleasingState extends PlayerState
 		var shot = new BlockReleaser(
 			this,
 			block,
-			player.releaseX,
-			player.releaseY,
-			player.shotDirection
+			player.getReleaseX(shotDirection),
+			player.getReleaseY(shotDirection),
+			shotDirection
 		);
 		player.scene.add(shot);
 		

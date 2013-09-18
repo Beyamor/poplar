@@ -1,6 +1,7 @@
 package poplar.entities.player.states;
 import com.haxepunk.utils.Input;
 import poplar.entities.player.Player;
+import poplar.support.ShotInputInterpreter;
 
 /**
  * ...
@@ -25,9 +26,9 @@ class NormalState extends PlayerState
 	{
 		super.update();
 		
-		if (Input.pressed("shoot")) {
+		if (ShotInputInterpreter.isTryingToShoot) {
 			
-			player.state = new CapturingState(player);
+			player.state = new CapturingState(player, ShotInputInterpreter.direction);
 		}
 	}
 }

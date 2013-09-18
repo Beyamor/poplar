@@ -2,6 +2,7 @@ package poplar.entities.player.states;
 import poplar.entities.Block;
 import poplar.entities.shots.BlockCapturer;
 import poplar.entities.player.Player;
+import poplar.support.Direction;
 
 /**
  * ...
@@ -9,17 +10,20 @@ import poplar.entities.player.Player;
  */
 class CapturingState extends PlayerState
 {
+	private var shotDirection:Direction;
 
-	public function new(player:Player) 
+	public function new(player:Player, shotDirection:Direction) 
 	{
 		super(player);
+		
+		this.shotDirection = shotDirection;
 	}
 	
 	override public function enter():Void 
 	{
 		super.enter();
 		
-		var shot = new BlockCapturer(this, player.x + player.halfWidth, player.y + player.halfHeight, player.shotDirection);
+		var shot = new BlockCapturer(this, player.x + player.halfWidth, player.y + player.halfHeight, shotDirection);
 		player.scene.add(shot);
 	}
 	

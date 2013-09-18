@@ -6,7 +6,9 @@ import com.haxepunk.utils.Input;
 import nme.filesystem.StorageVolumeInfo;
 import poplar.entities.Block;
 import poplar.entities.player.Player;
+import poplar.support.Direction;
 import poplar.support.Grid;
+import poplar.support.ShotInputInterpreter;
 
 /**
  * ...
@@ -53,11 +55,13 @@ class CapturedState extends PlayerState
 	
 	private function tryShooting():Void {
 		
-		var canShoot = player.canShootForwards() || player.canBeMovedBackwards();
+		
+		var shotDirection:Direction = ShotInputInterpreter.direction,
+			canShoot = player.canShootForwards(shotDirection) || player.canBeMovedBackwards(shotDirection);
 			
 		if (canShoot) {
 		
-			player.state = new ReleasingState(player, block);
+			player.state = new ReleasingState(player, block, shotDirection);
 		}
 	}
 	
@@ -65,7 +69,7 @@ class CapturedState extends PlayerState
 	{
 		super.update();
 		
-		if (Input.pressed("shoot")) {
+		if (ShotInputInterpreter.isTryingToShoot) {
 			
 			tryShooting();
 		}

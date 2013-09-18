@@ -27,12 +27,13 @@ class Main extends Engine
 		
 		HXP.scene = new GameScene();
 		
-		Input.define("up", [Key.UP]);
-		Input.define("down", [Key.DOWN]);
-		Input.define("left", [Key.LEFT]);
-		Input.define("right", [Key.RIGHT]);
-		Input.define("jump", [Key.X]);
-		Input.define("shoot", [Key.C]);
+		Input.define("move-left", [Key.A]);
+		Input.define("move-right", [Key.D]);
+		Input.define("jump", [Key.W]);
+		Input.define("shoot-left", [Key.LEFT]);
+		Input.define("shoot-right", [Key.RIGHT]);
+		Input.define("shoot-up", [Key.UP]);
+		Input.define("shoot-down", [Key.DOWN]);
 		Input.define("spawnBlock", [Key.ENTER]);
 	}
 	
