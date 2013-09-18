@@ -32,8 +32,6 @@ class Player extends Entity
 	public var state(null,set_state):PlayerState;
 	public var releaseX(get_releaseX,null):Float;
 	public var releaseY(get_releaseY, null):Float;
-	
-	public var block:Block;
 
 	public function new(grid:Grid, x:Float, y:Float) 
 	{		

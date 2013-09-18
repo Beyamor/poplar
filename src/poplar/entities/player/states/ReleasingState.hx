@@ -14,13 +14,15 @@ import poplar.support.Direction;
 class ReleasingState extends PlayerState
 {
 	private var shotDirection:Direction;
+	private var block:Block;
 	
 	public var wasHit:Bool = false;
 	
-	public function new(player:Player) 
+	public function new(player:Player, block:Block) 
 	{
 		super(player);
 		shotDirection = player.shotDirection;
+		this.block = block;
 	}
 	
 	override public function enter():Void 
@@ -29,7 +31,7 @@ class ReleasingState extends PlayerState
 		
 		var shot = new BlockReleaser(
 			this,
-			player.block,
+			block,
 			player.releaseX,
 			player.releaseY,
 			player.shotDirection

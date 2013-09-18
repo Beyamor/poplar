@@ -31,7 +31,6 @@ class CapturedState extends PlayerState
 	override public function enter():Void 
 	{
 		super.enter();
-		player.block = block;
 		player.color = block.color;
 	}
 	
@@ -58,7 +57,7 @@ class CapturedState extends PlayerState
 			
 		if (canShoot) {
 		
-			player.state = new ReleasingState(player);
+			player.state = new ReleasingState(player, block);
 		}
 	}
 	
