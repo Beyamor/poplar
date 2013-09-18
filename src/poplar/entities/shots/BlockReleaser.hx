@@ -13,12 +13,12 @@ import poplar.support.Direction;
  */
 class BlockReleaser extends Shot
 {
-	private var player:ReleasingState;
+	private var playerState:ReleasingState;
 	private var block:Block;
 
-	public function new(player:ReleasingState, block:Block, x:Float, y:Float, direction:Direction) 
+	public function new(playerState:ReleasingState, block:Block, x:Float, y:Float, direction:Direction) 
 	{
-		this.player	= player;
+		this.playerState	= playerState;
 		this.block	= block;
 		
 		var sprite:Image = new Image("img/block.png");
@@ -53,6 +53,6 @@ class BlockReleaser extends Shot
 		block.yVel = 0;
 		scene.add(block);
 		block.grid.checkForMatches(block);
-		player.shotHit();
+		playerState.shotHit();
 	}
 }

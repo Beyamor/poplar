@@ -45,13 +45,14 @@ class Player extends Entity
 		
 		width			= Math.floor(Block.WIDTH * 0.75);
 		height			= Block.HEIGHT;
-		originX			= Math.floor(width / 2);
-		originY			= height;		
+		//originX			= Math.floor(width / 2);
+		//originY			= height;		
 		shotDirection	= RIGHT;
 		state			= new NormalState(this);
 		
-		sprite.x		= -sprite.width / 2;
-		sprite.y		= -height;
+		sprite.x		= -(sprite.width - width) / 2;
+		//sprite.x		= -sprite.width / 2;
+		//sprite.y		= -height;
 		
 		shotDirection = lastHorizontalShotDirection = RIGHT;
 	}
@@ -90,6 +91,7 @@ class Player extends Entity
 			else {
 				
 				die();
+				//HXP.console.paused = true;
 				return;
 			}
 		}
@@ -202,10 +204,13 @@ class Player extends Entity
 		switch (shotDirection) {
 			
 			case DOWN:
-				return grid.closestPixelX(x - block.halfWidth);
+				return grid.closestPixelX(x);
+				
+			case RIGHT:
+				return x + width;
 				
 			default:
-				return grid.closestPixelX(x - block.halfWidth);
+				return grid.closestPixelX(x);
 		}
 	}
 	
@@ -214,10 +219,13 @@ class Player extends Entity
 		switch (shotDirection) {
 			
 			case DOWN:
+				return y + height;
+				
+			case RIGHT:
 				return y;
 				
 			default:
-				return y - block.height;
+				return y;
 		}
 	}
 }

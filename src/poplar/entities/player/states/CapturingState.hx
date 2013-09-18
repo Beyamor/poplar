@@ -19,7 +19,7 @@ class CapturingState extends PlayerState
 	{
 		super.enter();
 		
-		var shot = new BlockCapturer(this, player.x, player.y - player.halfHeight, player.shotDirection);
+		var shot = new BlockCapturer(this, player.x + player.halfWidth, player.y + player.halfHeight, player.shotDirection);
 		player.scene.add(shot);
 	}
 	

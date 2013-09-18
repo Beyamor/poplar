@@ -67,17 +67,25 @@ class CapturedState extends PlayerState
 				// Otherwise, try to reposition the player
 				if (collisionBelow != null) {
 					
-					var collisionAbove = player.collideTypes(["block", "boundary"], player.x, collisionBelow.y - block.height - 1);
+					var bouncedY = collisionBelow.y - block.height - player.height - 1,
+						collisionAbove = player.collideTypes(["block", "boundary"], player.x, bouncedY);
 					
-					// If there's space above
-					if (collisionAbove == null) {
+					// If there's no space above, we can't shoot
+					if (collisionAbove != null) {
 						
-						// We can shoot! And hey, move the player there
-						player.y = collisionBelow.y - block.height - 1;
+						canShoot = false;
 					}
+				}
+				
+			case RIGHT:
+				var collisionRight = collideBlock(player.releaseX, player.releaseY);
+				
+				if (collisionRight != null) {
 					
-					// Otherwise, there's no space, so don't try to shoot
-					else {
+					var bouncedX = collisionRight.x - block.width - player.width,
+						collisionLeft = player.collideTypes(["block", "boundary"], bouncedX, player.y);
+					
+					if (collisionLeft != null) {
 						
 						canShoot = false;
 					}
