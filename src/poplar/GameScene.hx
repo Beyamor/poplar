@@ -7,6 +7,7 @@ import poplar.entities.Block;
 import poplar.entities.Boundary;
 import poplar.entities.player.Player;
 import poplar.spawners.BlockSpawner;
+import poplar.spawners.ColumnSpawner;
 import poplar.spawners.ManualSpawner;
 import poplar.spawners.PeriodicSpawner;
 import poplar.support.Grid;
@@ -52,8 +53,9 @@ class GameScene extends Scene
 		
 		add(new Player(grid, Block.WIDTH * 5, 200));
 		
-		blockSpawner = new PeriodicSpawner(this, grid, 1.4);
+		//blockSpawner = new PeriodicSpawner(this, grid, 1.4);
 		//blockSpawner = new ManualSpawner(this, grid);
+		blockSpawner = new ColumnSpawner(this, grid, 1);
 	}
 	
 	override public function update():Dynamic 
@@ -61,5 +63,10 @@ class GameScene extends Scene
 		super.update();
 		
 		blockSpawner.update();
+	}
+	
+	public function respondToBlockOutsideArena():Void {
+		
+		HXP.scene = new GameScene();
 	}
 }

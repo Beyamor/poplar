@@ -3,6 +3,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import nme.display.BitmapData;
+import poplar.GameScene;
 import poplar.support.Grid;
 
 /**
@@ -49,7 +50,16 @@ class Block extends Entity
 		x = grid.closestPixelX(x);
 		y = grid.closestPixelY(y);
 		
-		grid.checkForMatches(this);
+		var wasMatched = grid.checkForMatches(this);
+		
+		// if above arena and not removed, game over baby
+		if (!wasMatched && y < grid.pixelDimensions.top) {
+			
+			if (Std.is(scene, GameScene)) {
+				
+				(cast(scene, GameScene)).respondToBlockOutsideArena();
+			}
+		}
 	}
 	
 	private function collidableTypes():Array<String> {

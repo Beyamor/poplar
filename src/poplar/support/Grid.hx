@@ -80,6 +80,11 @@ class Grid
 		return Math.floor((y - pixelDimensions.y) / Block.HEIGHT);
 	}
 	
+	public function xIndexToPixel(x:Int):Float {
+		
+		return pixelDimensions.x + x * Block.WIDTH;
+	}
+	
 	private function getAllStationaryBlocks():Array<Block> {
 		
 		var blocks:Array<Block> = [];
@@ -183,13 +188,15 @@ class Grid
 		};
 	}
 	
-	public function checkForMatches(block:Block):Void {
+	public function checkForMatches(block:Block):Bool {
 		
 		blocks = getAllStationaryBlocks();
-		var neighbours:BlockNeighbours = matchingNeighbours(block);
+		var neighbours:BlockNeighbours = matchingNeighbours(block),
+			wasMatched:Bool = false;
 		
 		if (neighbours.left.length + neighbours.right.length >= 2) {
 			
+			wasMatched = true;
 			scene.remove(block);
 			for (neighbour in neighbours.left) scene.remove(neighbour);
 			for (neighbour in neighbours.right) scene.remove(neighbour);
@@ -197,9 +204,12 @@ class Grid
 		
 		if (neighbours.up.length + neighbours.down.length >= 2) {
 			
+			wasMatched = true;
 			scene.remove(block);
 			for (neighbour in neighbours.up) scene.remove(neighbour);
 			for (neighbour in neighbours.down) scene.remove(neighbour);
 		}
+		
+		return wasMatched;
 	}
 }
