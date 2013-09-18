@@ -54,45 +54,7 @@ class CapturedState extends PlayerState
 	
 	private function tryShooting():Void {
 		
-		var canShoot = true;
-			
-		switch (player.shotDirection) {
-		
-			case DOWN:
-				
-				// Check for free space right below the player
-				var collisionBelow = collideBlock(player.releaseX, player.releaseY);
-				
-				// If no collision below, we're good
-				// Otherwise, try to reposition the player
-				if (collisionBelow != null) {
-					
-					var bouncedY = collisionBelow.y - block.height - player.height - 1,
-						collisionAbove = player.collideTypes(["block", "boundary"], player.x, bouncedY);
-					
-					// If there's no space above, we can't shoot
-					if (collisionAbove != null) {
-						
-						canShoot = false;
-					}
-				}
-				
-			case RIGHT:
-				var collisionRight = collideBlock(player.releaseX, player.releaseY);
-				
-				if (collisionRight != null) {
-					
-					var bouncedX = collisionRight.x - block.width - player.width,
-						collisionLeft = player.collideTypes(["block", "boundary"], bouncedX, player.y);
-					
-					if (collisionLeft != null) {
-						
-						canShoot = false;
-					}
-				}
-				
-			default:
-		}
+		var canShoot = player.canShootForwards() || player.canBeMovedBackwards();
 			
 		if (canShoot) {
 		

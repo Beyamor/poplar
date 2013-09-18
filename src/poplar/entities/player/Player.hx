@@ -88,8 +88,8 @@ class Player extends Entity
 			// Otherwise, die?
 			else {
 				
-				//die();
-				HXP.console.paused = true;
+				die();
+				//HXP.console.paused = true;
 				return;
 			}
 		}
@@ -225,5 +225,48 @@ class Player extends Entity
 			default:
 				return y;
 		}
+	}
+	
+	private function collideBlock(x:Float, y:Float):Entity {
+		
+		var collision:Entity = null;
+		
+		if (collision == null) {
+			
+			collision = scene.collideRect("block", x, y, block.width, block.height);
+		}
+		
+		if (collision == null) {
+			
+			collision = scene.collideRect("boundary", x, y, block.width, block.height);
+		}
+		
+		return collision;
+	}
+	
+	public function canShootForwards():Bool {
+		
+		return (collideBlock(releaseX, releaseY) == null);
+	}
+	
+	public function canBeMovedBackwards():Bool {
+		
+		var	forwardCollision = collideBlock(releaseX, releaseY),
+			bouncedX:Float = x,
+			bouncedY:Float = y;
+			
+		switch (shotDirection) {
+			
+			case DOWN:
+				bouncedY = forwardCollision.y - block.height - height;
+				
+			case RIGHT:
+				bouncedX = forwardCollision.x - block.width - width;
+				
+			default:
+				// pass
+		}
+		
+		return (collideTypes(["block", "boundary"], bouncedX, bouncedY) == null);
 	}
 }
