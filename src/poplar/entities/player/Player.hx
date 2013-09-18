@@ -201,14 +201,14 @@ class Player extends Entity
 		
 		switch (shotDirection) {
 			
-			case DOWN:
+			case DOWN, UP:
 				return grid.closestPixelX(x);
 				
 			case RIGHT:
 				return x + width;
 				
-			default:
-				return grid.closestPixelX(x);
+			case LEFT:
+				return x - Block.WIDTH;
 		}
 	}
 	
@@ -219,11 +219,11 @@ class Player extends Entity
 			case DOWN:
 				return y + height;
 				
-			case RIGHT:
+			case RIGHT, LEFT:
 				return y;
 				
-			default:
-				return y;
+			case UP:
+				return y - Block.HEIGHT;
 		}
 	}
 	
@@ -233,12 +233,12 @@ class Player extends Entity
 		
 		if (collision == null) {
 			
-			collision = scene.collideRect("block", x, y, block.width, block.height);
+			collision = scene.collideRect("block", x, y, Block.WIDTH, Block.HEIGHT);
 		}
 		
 		if (collision == null) {
 			
-			collision = scene.collideRect("boundary", x, y, block.width, block.height);
+			collision = scene.collideRect("boundary", x, y, Block.WIDTH, Block.HEIGHT);
 		}
 		
 		return collision;
@@ -258,13 +258,16 @@ class Player extends Entity
 		switch (shotDirection) {
 			
 			case DOWN:
-				bouncedY = forwardCollision.y - block.height - height;
+				bouncedY = forwardCollision.top - Block.HEIGHT - height;
 				
 			case RIGHT:
-				bouncedX = forwardCollision.x - block.width - width;
+				bouncedX = forwardCollision.left - Block.WIDTH - width;
 				
-			default:
-				// pass
+			case LEFT:
+				bouncedX = forwardCollision.right + Block.WIDTH;
+				
+			case UP:
+				bouncedY = forwardCollision.bottom + Block.HEIGHT;
 		}
 		
 		return (collideTypes(["block", "boundary"], bouncedX, bouncedY) == null);

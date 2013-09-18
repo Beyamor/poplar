@@ -34,8 +34,11 @@ class ShotBlock extends Block
 			case RIGHT:
 				player.x = x - player.width;
 				
-			default:
-				// do nothing
+			case LEFT:
+				player.x = x + width;
+				
+			case UP:
+				player.y = y + height;
 		}
 	}
 }

@@ -35,8 +35,12 @@ class BlockReleaser extends Shot
 	{
 		switch (direction) {
 			
-			case LEFT, RIGHT:
-				block.x = (collision.x < x)? (collision.right) : (collision.left - block.width);
+			case LEFT:
+				block.x = collision.right;
+				block.y = y;
+				
+			case RIGHT:
+				block.x = collision.left - block.width;
 				block.y = y;
 				
 			case UP, DOWN:
