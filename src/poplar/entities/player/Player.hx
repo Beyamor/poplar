@@ -45,16 +45,14 @@ class Player extends Entity
 		
 		width			= Math.floor(Block.WIDTH * 0.75);
 		height			= Block.HEIGHT;
-		//originX			= Math.floor(width / 2);
-		//originY			= height;		
 		shotDirection	= RIGHT;
 		state			= new NormalState(this);
 		
 		sprite.x		= -(sprite.width - width) / 2;
-		//sprite.x		= -sprite.width / 2;
-		//sprite.y		= -height;
 		
 		shotDirection = lastHorizontalShotDirection = RIGHT;
+		
+		type = "player";
 	}
 	
 	private function die():Void {
@@ -90,8 +88,8 @@ class Player extends Entity
 			// Otherwise, die?
 			else {
 				
-				die();
-				//HXP.console.paused = true;
+				//die();
+				HXP.console.paused = true;
 				return;
 			}
 		}

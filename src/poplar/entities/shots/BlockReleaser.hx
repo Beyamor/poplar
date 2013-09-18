@@ -4,6 +4,7 @@ import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import poplar.entities.Block;
 import poplar.entities.player.states.ReleasingState;
+import poplar.entities.ShotBlock;
 import poplar.GameScene;
 import poplar.support.Direction;
 
@@ -19,7 +20,7 @@ class BlockReleaser extends Shot
 	public function new(playerState:ReleasingState, block:Block, x:Float, y:Float, direction:Direction) 
 	{
 		this.playerState	= playerState;
-		this.block	= block;
+		this.block	= new ShotBlock(block, direction);
 		
 		var sprite:Image = new Image("img/block.png");
 		sprite.color = block.color;

@@ -19,6 +19,7 @@ class NormalState extends PlayerState
 		super.enter();
 		
 		player.color = 0xFFFFFFFF;
+		player.block = null;
 	}
 	
 	override public function update():Void 
