@@ -31,6 +31,7 @@ class GameScene extends Scene
 		super.begin();
 		
 		addGraphic(new Backdrop("img/background.png"), 100);
+		addGraphic(new Backdrop("img/foreground.png"), -100);
 		
 		grid = new Grid(this);
 		

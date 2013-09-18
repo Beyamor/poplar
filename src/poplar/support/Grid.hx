@@ -55,9 +55,9 @@ class Grid
 		return new Point(pixelDimensions.x + x * Block.WIDTH, pixelDimensions.y + y * Block.HEIGHT);
 	}
 	
-	public function anyX():Int {
+	public function anyPixelX():Float {
 		
-		return Math.floor(Math.random() * width);
+		return pixelDimensions.x + Math.floor(Math.random() * width) * Block.WIDTH;
 	}
 	
 	public function closestPixelX(x:Float):Float {

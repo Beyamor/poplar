@@ -27,6 +27,8 @@ class Block extends Entity
 	public var color(default, null):Int;
 	public var grid:Grid;
 	
+	private var hasEnteredArena:Bool = false;
+	
 	public function new(x:Float, y:Float, grid:Grid, color:UInt) 
 	{		
 		this.grid = grid;
@@ -50,11 +52,19 @@ class Block extends Entity
 		grid.checkForMatches(this);
 	}
 	
+	private function collidableTypes():Array<String> {
+		
+		if (hasEnteredArena) return ["block", "boundary"];
+		else return ["block"];
+	}
+	
 	override public function update():Void 
 	{
 		super.update();
 		
-		if (collideTypes(["block", "boundary"], x, y + 1) == null) {
+		if (y >= grid.pixelDimensions.top) hasEnteredArena = true;
+		
+		if (collideTypes(collidableTypes(), x, y + 1) == null) {
 			
 			yVel = FALL_SPEED;
 			
@@ -62,7 +72,7 @@ class Block extends Entity
 				
 				var yIncrement = 1;
 				
-				if (collideTypes(["block", "boundary"], x, y + yIncrement) == null) {
+				if (collideTypes(collidableTypes(), x, y + yIncrement) == null) {
 					
 					y += yIncrement;
 				}

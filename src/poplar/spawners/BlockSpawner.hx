@@ -2,6 +2,7 @@ package poplar.spawners;
 
 import com.haxepunk.Scene;
 import com.haxepunk.World;
+import flash.geom.Point;
 import poplar.entities.Block;
 import poplar.support.Grid;
 import poplar.util.Updateable;
@@ -24,7 +25,7 @@ class BlockSpawner implements Updateable
 	
 	private function spawnNextBlock():Void {
 		
-		var pos = grid.pixelPos(grid.anyX(), 0);
+		var pos = new Point(grid.anyPixelX(), -Block.HEIGHT);
 		var color = Block.colors[Math.floor(Math.random() * Block.colors.length)];
 		scene.add(new Block(pos.x, pos.y, grid, color));
 	}
