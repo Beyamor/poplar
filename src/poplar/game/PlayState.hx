@@ -13,5 +13,6 @@ class PlayState extends GameState
 		super();
 		
 		updatesSpawners = true;
+		allowsPlayerMovement = true;
 	}
 }

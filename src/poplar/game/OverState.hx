@@ -15,6 +15,7 @@ class OverState extends GameState
 		super();
 		
 		updatesSpawners = false;
+		allowsPlayerMovement = false;
 	}
 	
 	override public function update():Void 

@@ -16,17 +16,18 @@ import poplar.support.Grid;
  */
 class Player extends Entity
 {
-	private static var	GRAVITY:Float					= 2000;
-	private static var	HORIZONTAL_ACCELERATION:Float	= 2000;
-	private static var	MAX_HORIZONTAL_SPEED:Float		= 250;
-	private static var	FRICTION:Float					= 2000;
-	private static var	JUMP_VELOCITY:Float				= 700;
+	public static var	GRAVITY:Float					= 2000;
+	public static var	HORIZONTAL_ACCELERATION:Float	= 2000;
+	public static var	MAX_HORIZONTAL_SPEED:Float		= 250;
+	public static var	FRICTION:Float					= 2000;
+	public static var	JUMP_VELOCITY:Float				= 700;
 	
-	private var	xVel:Float	= 0;
-	private var	yVel:Float	= 0;
+	public var	xVel:Float	= 0;
+	public var	yVel:Float	= 0;
 	private var sprite:Image;
-	private var game:Game;
+	public var game(default, null):Game;
 	private var grid(get_grid, null):Grid;
+	private var movementControl:PlayerMovement;
 	
 	public var color(null, set_color):Int;
 	public var state(null,set_state):PlayerState;
@@ -46,6 +47,8 @@ class Player extends Entity
 		sprite.x		= -(sprite.width - width) / 2;
 		
 		type = "player";
+		
+		movementControl = new PlayerMovement(this);
 	}
 	
 	private function die():Void {
@@ -88,27 +91,7 @@ class Player extends Entity
 		// Apply gravity
 		yVel += GRAVITY * HXP.elapsed;
 		
-		// Check for horizontal movement
-		var	tryingToMoveHorizontally:Bool = false;
-		
-		if (Input.check("move-left")) {
-			
-			xVel -= HORIZONTAL_ACCELERATION * HXP.elapsed;
-			tryingToMoveHorizontally = true;
-		}
-		
-		if (Input.check("move-right")) {
-			
-			xVel += HORIZONTAL_ACCELERATION * HXP.elapsed;
-			tryingToMoveHorizontally = true;
-		}
-		
-		// If the player is not trying to move, apply friction
-		if (!tryingToMoveHorizontally)	{
-			
-			var frictionAmount = Math.min(FRICTION * HXP.elapsed, Math.abs(xVel));
-			xVel -= frictionAmount * HXP.sign(xVel);
-		}
+		movementControl.checkHorizontal();
 		
 		// Alright. Stepwise move in x axis.
 		xVel = HXP.clamp(xVel, -MAX_HORIZONTAL_SPEED, MAX_HORIZONTAL_SPEED);
@@ -157,12 +140,7 @@ class Player extends Entity
 			}
 		}
 		
-		// And handle jumping
-		var canJump = (collideTypes(["block", "boundary"], x, y + 1) != null);
-		if (canJump && Input.pressed("jump")) {
-			
-			yVel = -JUMP_VELOCITY;
-		}
+		movementControl.checkVertical();
 		
 		// Nice. Let the states have atter
 		state.update();

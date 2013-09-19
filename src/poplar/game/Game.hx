@@ -11,6 +11,7 @@ class Game
 	private var state:GameState;
 	
 	public var isUpdatingSpawners(get_isUpdatingSpawners, null):Bool;
+	public var isAllowingPlayerMovement(get_isAllowingPlayerMovement, null):Bool;
 	public var grid(default, null):Grid;
 
 	public function new(scene:GameScene) 
@@ -22,6 +23,11 @@ class Game
 	private function get_isUpdatingSpawners() {
 		
 		return state.updatesSpawners;
+	}
+	
+	private function get_isAllowingPlayerMovement() {
+		
+		return state.allowsPlayerMovement;
 	}
 	
 	public function respondToBlockLandingOutside():Void {

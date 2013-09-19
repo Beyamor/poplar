@@ -7,6 +7,7 @@ package poplar.game;
 class GameState
 {	
 	public var updatesSpawners:Bool;
+	public var allowsPlayerMovement:Bool;
 
 	public function new() 
 	{
