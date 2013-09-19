@@ -5,6 +5,7 @@ import com.haxepunk.Scene;
 import nme.geom.Point;
 import nme.geom.Rectangle;
 import poplar.entities.Block;
+import poplar.game.Game;
 
 /**
  * ...
@@ -30,9 +31,11 @@ class Grid
 	
 	private var scene:Scene;
 	private var blocks:Array<Block>;
+	private var game:Game;
 
-	public function new(scene:Scene) 
+	public function new(game:Game, scene:Scene) 
 	{
+		this.game = game;
 		this.scene = scene;
 		
 		pixelDimensions = new Rectangle(80, 80, WIDTH, HEIGHT);
@@ -192,23 +195,30 @@ class Grid
 		
 		blocks = getAllStationaryBlocks();
 		var neighbours:BlockNeighbours = matchingNeighbours(block),
-			wasMatched:Bool = false;
+			wasMatched:Bool = false,
+			numberOfMatchedBlocks:Int = 0,
+			initialBlockAccountedFor:Bool = false;
 		
 		if (neighbours.left.length + neighbours.right.length >= 2) {
 			
+			++numberOfMatchedBlocks;
+			initialBlockAccountedFor = true;
 			wasMatched = true;
 			scene.remove(block);
-			for (neighbour in neighbours.left) scene.remove(neighbour);
-			for (neighbour in neighbours.right) scene.remove(neighbour);
+			for (neighbour in neighbours.left) { scene.remove(neighbour); ++numberOfMatchedBlocks; }
+			for (neighbour in neighbours.right) { scene.remove(neighbour); ++numberOfMatchedBlocks; }
 		}
 		
 		if (neighbours.up.length + neighbours.down.length >= 2) {
 			
+			if (!initialBlockAccountedFor) ++numberOfMatchedBlocks;
 			wasMatched = true;
 			scene.remove(block);
-			for (neighbour in neighbours.up) scene.remove(neighbour);
-			for (neighbour in neighbours.down) scene.remove(neighbour);
+			for (neighbour in neighbours.up) { scene.remove(neighbour); ++numberOfMatchedBlocks; }
+			for (neighbour in neighbours.down) { scene.remove(neighbour); ++numberOfMatchedBlocks; }
 		}
+		
+		if (wasMatched) game.registerMatchedBlocks(numberOfMatchedBlocks);
 		
 		return wasMatched;
 	}

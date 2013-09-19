@@ -13,11 +13,12 @@ class Game
 	public var isUpdatingSpawners(get_isUpdatingSpawners, null):Bool;
 	public var isAllowingPlayerMovement(get_isAllowingPlayerMovement, null):Bool;
 	public var grid(default, null):Grid;
+	public var totalScore:Int = 0;
 
 	public function new(scene:GameScene) 
 	{
 		state = new PlayState();
-		grid = new Grid(scene);
+		grid = new Grid(this, scene);
 	}
 	
 	private function get_isUpdatingSpawners() {
@@ -43,5 +44,11 @@ class Game
 	public function update():Void {
 		
 		state.update();
+	}
+	
+	public function registerMatchedBlocks(numberOfMatchedBlocks):Void {
+		
+		var score = (numberOfMatchedBlocks - 2) * 100;
+		totalScore += score;
 	}
 }

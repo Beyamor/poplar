@@ -6,6 +6,7 @@ import com.haxepunk.Scene;
 import poplar.entities.Block;
 import poplar.entities.Boundary;
 import poplar.entities.player.Player;
+import poplar.entities.ScoreDisplay;
 import poplar.game.Game;
 import poplar.spawners.BlockSpawner;
 import poplar.spawners.ColumnSpawner;
@@ -53,9 +54,11 @@ class GameScene extends Scene
 		
 		add(new Player(game, Block.WIDTH * 5, 200));
 		
-		//blockSpawner = new PeriodicSpawner(this, game, 1.4);
+		blockSpawner = new PeriodicSpawner(this, game, 1.4);
 		//blockSpawner = new ManualSpawner(this, game);
-		blockSpawner = new ColumnSpawner(this, game, 1);
+		//blockSpawner = new ColumnSpawner(this, game, 1);
+		
+		add(new ScoreDisplay(game, 20, 20));
 	}
 	
 	override public function update():Dynamic 
