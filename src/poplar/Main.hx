@@ -24,7 +24,7 @@ class Main extends Engine
 	{
 		super.init();
 		
-		HXP.scene = new GameScene();
+		HXP.scene = new IntroScene();
 		
 		Input.define("move-left", [Key.A]);
 		Input.define("move-right", [Key.D]);
