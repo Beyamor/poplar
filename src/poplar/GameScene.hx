@@ -22,6 +22,7 @@ class GameScene extends Scene
 {
 	private var blockSpawner:BlockSpawner;
 	private var game:Game;
+	private var scoreDisplay:ScoreDisplay;
 
 	public function new() 
 	{
@@ -58,7 +59,8 @@ class GameScene extends Scene
 		//blockSpawner = new ManualSpawner(this, game);
 		//blockSpawner = new ColumnSpawner(this, game, 1);
 		
-		add(new ScoreDisplay(game, 20, 20));
+		scoreDisplay = new ScoreDisplay(game, 20, 20);
+		add(scoreDisplay);
 	}
 	
 	override public function update():Dynamic 
@@ -67,5 +69,14 @@ class GameScene extends Scene
 		
 		game.update();
 		if (game.isUpdatingSpawners) blockSpawner.update();
+	}
+	
+	public function removeScoreDisplay():Void {
+		
+		if (scoreDisplay != null) {
+			
+			if (scoreDisplay.scene != null) scoreDisplay.scene.remove(scoreDisplay);
+			scoreDisplay = null;
+		}
 	}
 }

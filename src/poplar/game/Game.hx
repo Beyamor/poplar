@@ -9,6 +9,7 @@ import poplar.support.Grid;
 class Game
 {
 	private var state:GameState;
+	private var scene:GameScene;
 	
 	public var isUpdatingSpawners(get_isUpdatingSpawners, null):Bool;
 	public var isAllowingPlayerMovement(get_isAllowingPlayerMovement, null):Bool;
@@ -17,6 +18,8 @@ class Game
 
 	public function new(scene:GameScene) 
 	{
+		this.scene = scene;
+		
 		state = new PlayState();
 		grid = new Grid(this, scene);
 	}
@@ -33,12 +36,12 @@ class Game
 	
 	public function respondToBlockLandingOutside():Void {
 		
-		state = new OverState(BLOCK_OUTSIDE);
+		state = new OverState(BLOCK_OUTSIDE, this, scene);
 	}
 	
 	public function respondToPlayerDying():Void {
 		
-		state = new OverState(PLAYER_KILLED);
+		state = new OverState(PLAYER_KILLED, this, scene);
 	}
 	
 	public function update():Void {
