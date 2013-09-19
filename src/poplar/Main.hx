@@ -35,6 +35,7 @@ class Main extends Engine
 		Input.define("shoot-up", [Key.UP]);
 		Input.define("shoot-down", [Key.DOWN]);
 		Input.define("spawnBlock", [Key.ENTER]);
+		Input.define("next-scene", [Key.SPACE]);
 	}
 	
 	public static function main() {

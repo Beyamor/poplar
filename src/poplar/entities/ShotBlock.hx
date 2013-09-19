@@ -12,7 +12,7 @@ class ShotBlock extends Block
 
 	public function new(originalBlock:Block, shotDirection:Direction) 
 	{
-		super(originalBlock.x, originalBlock.y, originalBlock.grid, originalBlock.color);
+		super(originalBlock.game, originalBlock.x, originalBlock.y, originalBlock.color);
 		
 		this.shotDirection = shotDirection;
 	}

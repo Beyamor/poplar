@@ -3,6 +3,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 import nme.display.BitmapData;
+import poplar.game.Game;
 import poplar.GameScene;
 import poplar.support.Grid;
 
@@ -26,13 +27,14 @@ class Block extends Entity
 	
 	public var yVel:Float = 0;
 	public var color(default, null):Int;
-	public var grid:Grid;
+	public var game:Game;
+	private var grid(get_grid, null):Grid;
 	
 	private var hasEnteredArena:Bool = false;
 	
-	public function new(x:Float, y:Float, grid:Grid, color:UInt) 
+	public function new(game:Game, x:Float, y:Float, color:UInt) 
 	{		
-		this.grid = grid;
+		this.game = game;
 		
 		var sprite = new Image("img/block.png");
 		sprite.color = this.color = color;
@@ -55,10 +57,7 @@ class Block extends Entity
 		// if above arena and not removed, game over baby
 		if (!wasMatched && y < grid.pixelDimensions.top) {
 			
-			if (Std.is(scene, GameScene)) {
-				
-				(cast(scene, GameScene)).respondToBlockOutsideArena();
-			}
+			game.respondToBlockLandingOutside();
 		}
 	}
 	
@@ -102,5 +101,10 @@ class Block extends Entity
 				stopMoving();
 			}
 		}
+	}
+	
+	private function get_grid():Grid {
+		
+		return game.grid;
 	}
 }

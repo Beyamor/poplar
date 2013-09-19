@@ -2,6 +2,7 @@ package poplar.spawners;
 import com.haxepunk.Scene;
 import flash.geom.Point;
 import poplar.entities.Block;
+import poplar.game.Game;
 import poplar.support.Grid;
 import poplar.util.Watch;
 
@@ -14,9 +15,9 @@ class ColumnSpawner extends BlockSpawner
 	private var watch:Watch;
 	private var colorIndex:Int = 0;
 
-	public function new(scene:Scene, grid:Grid, intervalInSeconds:Float)
+	public function new(scene:Scene, game:Game, intervalInSeconds:Float)
 	{
-		super(scene, grid);
+		super(scene, game);
 		
 		watch = new Watch(intervalInSeconds);
 		watch.addCallback(function():Void {
@@ -33,7 +34,7 @@ class ColumnSpawner extends BlockSpawner
 		var color = Block.colors[colorIndex % Block.colors.length];
 		++colorIndex;
 		
-		scene.add(new Block(pos.x, pos.y, grid, color));
+		scene.add(new Block(game, pos.x, pos.y, color));
 	}
 	
 	override public function update():Void 

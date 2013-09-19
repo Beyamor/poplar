@@ -1,5 +1,6 @@
 package poplar.spawners;
 import com.haxepunk.Scene;
+import poplar.game.Game;
 import poplar.support.Grid;
 import poplar.util.Watch;
 
@@ -11,9 +12,9 @@ class PeriodicSpawner extends BlockSpawner
 {
 	private var watch:Watch;
 
-	public function new(scene:Scene, grid:Grid, intervalInSeconds:Float)
+	public function new(scene:Scene, game:Game, intervalInSeconds:Float)
 	{
-		super(scene, grid);
+		super(scene, game);
 		
 		watch = new Watch(intervalInSeconds);
 		watch.addCallback(function():Void {

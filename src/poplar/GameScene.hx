@@ -6,6 +6,7 @@ import com.haxepunk.Scene;
 import poplar.entities.Block;
 import poplar.entities.Boundary;
 import poplar.entities.player.Player;
+import poplar.game.Game;
 import poplar.spawners.BlockSpawner;
 import poplar.spawners.ColumnSpawner;
 import poplar.spawners.ManualSpawner;
@@ -19,8 +20,7 @@ import poplar.support.Grid;
 class GameScene extends Scene
 {
 	private var blockSpawner:BlockSpawner;
-	
-	public var grid:Grid;
+	private var game:Game;
 
 	public function new() 
 	{
@@ -34,10 +34,10 @@ class GameScene extends Scene
 		addGraphic(new Backdrop("img/background.png"), 100);
 		addGraphic(new Backdrop("img/foreground.png"), -100);
 		
-		grid = new Grid(this);
+		game = new Game(this);
 		
-		var	boundaryHeight	= Math.floor(grid.pixelDimensions.top);
-		var boundaryWidth	= Math.floor(grid.pixelDimensions.left);
+		var	boundaryHeight	= Math.floor(game.grid.pixelDimensions.top);
+		var boundaryWidth	= Math.floor(game.grid.pixelDimensions.left);
 		
 		// Top
 		add(new Boundary(0, 0, HXP.width, boundaryHeight));
@@ -51,22 +51,18 @@ class GameScene extends Scene
 		// Right
 		add(new Boundary(HXP.width - boundaryWidth, 0, boundaryWidth, HXP.height));
 		
-		add(new Player(grid, Block.WIDTH * 5, 200));
+		add(new Player(game, Block.WIDTH * 5, 200));
 		
-		//blockSpawner = new PeriodicSpawner(this, grid, 1.4);
-		//blockSpawner = new ManualSpawner(this, grid);
-		blockSpawner = new ColumnSpawner(this, grid, 1);
+		//blockSpawner = new PeriodicSpawner(this, game, 1.4);
+		//blockSpawner = new ManualSpawner(this, game);
+		blockSpawner = new ColumnSpawner(this, game, 1);
 	}
 	
 	override public function update():Dynamic 
 	{
 		super.update();
 		
-		blockSpawner.update();
-	}
-	
-	public function respondToBlockOutsideArena():Void {
-		
-		HXP.scene = new GameScene();
+		game.update();
+		if (game.isUpdatingSpawners) blockSpawner.update();
 	}
 }

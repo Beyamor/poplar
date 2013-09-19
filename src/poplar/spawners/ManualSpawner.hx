@@ -1,6 +1,7 @@
 package poplar.spawners;
 import com.haxepunk.Scene;
 import com.haxepunk.utils.Input;
+import poplar.game.Game;
 import poplar.support.Grid;
 
 /**
@@ -10,9 +11,9 @@ import poplar.support.Grid;
 class ManualSpawner extends BlockSpawner
 {
 
-	public function new(scene:Scene, grid:Grid)
+	public function new(scene:Scene, game:Game)
 	{
-		super(scene, grid);
+		super(scene, game);
 	}
 	
 	override public function update():Void 

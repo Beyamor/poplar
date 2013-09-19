@@ -6,6 +6,7 @@ import com.haxepunk.utils.Input;
 import poplar.entities.Block;
 import poplar.entities.player.states.NormalState;
 import poplar.entities.player.states.PlayerState;
+import poplar.game.Game;
 import poplar.support.Direction;
 import poplar.support.Grid;
 
@@ -24,14 +25,15 @@ class Player extends Entity
 	private var	xVel:Float	= 0;
 	private var	yVel:Float	= 0;
 	private var sprite:Image;
-	private var grid:Grid;
+	private var game:Game;
+	private var grid(get_grid, null):Grid;
 	
 	public var color(null, set_color):Int;
 	public var state(null,set_state):PlayerState;
 
-	public function new(grid:Grid, x:Float, y:Float) 
+	public function new(game:Game, x:Float, y:Float) 
 	{		
-		this.grid = grid;
+		this.game = game;
 		
 		sprite = new Image("img/player.png");
 		
@@ -253,5 +255,10 @@ class Player extends Entity
 		}
 		
 		return (collideTypes(["block", "boundary"], bouncedX, bouncedY) == null);
+	}
+	
+	private function get_grid():Grid {
+		
+		return game.grid;
 	}
 }
