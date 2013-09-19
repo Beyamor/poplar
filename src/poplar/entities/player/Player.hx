@@ -50,8 +50,8 @@ class Player extends Entity
 	
 	private function die():Void {
 		
-		x = HXP.halfWidth;
-		y = HXP.halfHeight;
+		if (scene != null) scene.remove(this);
+		game.respondToPlayerDying();
 	}
 	
 	override public function update():Void 

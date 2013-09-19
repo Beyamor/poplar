@@ -7,5 +7,5 @@ package poplar.game;
 enum EndCondition {
 	
 	BLOCK_OUTSIDE;
-	PLAYER_CRUSHED;
+	PLAYER_KILLED;
 }

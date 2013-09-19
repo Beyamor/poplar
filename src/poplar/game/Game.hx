@@ -29,6 +29,11 @@ class Game
 		state = new OverState(BLOCK_OUTSIDE);
 	}
 	
+	public function respondToPlayerDying():Void {
+		
+		state = new OverState(PLAYER_KILLED);
+	}
+	
 	public function update():Void {
 		
 		state.update();
