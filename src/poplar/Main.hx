@@ -23,7 +23,6 @@ class Main extends Engine
 	override public function init():Dynamic 
 	{
 		super.init();
-		HXP.console.enable();
 		
 		HXP.scene = new GameScene();
 		
