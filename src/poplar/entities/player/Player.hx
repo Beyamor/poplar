@@ -40,7 +40,7 @@ class Player extends Entity
 		
 		super(x, y, sprite);
 		
-		width			= Math.floor(Block.WIDTH * 0.75);
+		width			= Math.floor(32);
 		height			= Block.HEIGHT;
 		state			= new NormalState(this);
 		
@@ -144,6 +144,9 @@ class Player extends Entity
 		
 		// Nice. Let the states have atter
 		state.update();
+		
+		// Oh, whoa, let's update that sprite
+		if (xVel != 0) sprite.flipped = (xVel < 0);
 	}
 	
 	private function set_color(newColor:Int):Int {
